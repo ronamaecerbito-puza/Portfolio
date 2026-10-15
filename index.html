@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ronamae Cerbito - BSIT Portfolio</title>
+    <!-- Google Fonts & FontAwesome for Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: #0f0f0f;
+            color: #e0e0e0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header / Navbar */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 40px;
+            background-color: rgba(15, 15, 15, 0.95);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid #222;
+        }
+
+        .logo {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #ffffff;
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: #ff7b00; /* Orange accent dot/highlight */
+        }
+
+        .menu-btn {
+            background: none;
+            border: 2px solid #333;
+            border-radius: 8px;
+            padding: 8px 12px;
+            cursor: pointer;
+            color: #ffffff;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+
+        .menu-btn:hover {
+            border-color: #ff7b00;
+            color: #ff7b00;
+        }
+
+        /* Main Navigation List Container */
+        .container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 0 20px;
+            flex: 1;
+            width: 100%;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 22px;
+        }
+
+        .nav-links li a {
+            color: #b0b0b0;
+            text-decoration: none;
+            font-size: 1.15rem;
+            font-weight: 400;
+            transition: all 0.2s ease-in-out;
+            display: inline-block;
+        }
+
+        .nav-links li a:hover {
+            color: #ffffff;
+            transform: translateX(8px);
+        }
+
+        /* Mobile Menu Overlay */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 280px;
+            height: 100%;
+            background-color: #161616;
+            box-shadow: -5px 0 15px rgba(0,0,0,0.5);
+            transition: 0.4s ease;
+            z-index: 1100;
+            padding: 40px 30px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sidebar.active {
+            right: 0;
+        }
+
+        .sidebar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .sidebar-header h3 {
+            color: #fff;
+            font-size: 1.1rem;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            color: #aaa;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .close-btn:hover {
+            color: #ff7b00;
+        }
+
+        .sidebar-links {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .sidebar-links li a {
+            color: #ccc;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: color 0.2s;
+        }
+
+        .sidebar-links li a:hover {
+            color: #ff7b00;
+        }
+
+        /* Overlay Background when menu is open */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.6);
+            visibility: hidden;
+            opacity: 0;
+            transition: 0.3s;
+            z-index: 1050;
+        }
+
+        .overlay.active {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 600px) {
+            header {
+                padding: 20px;
+            }
+            .container {
+                margin: 20px auto;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Section -->
+    <header>
+        <a href="#" class="logo">Ronamae S. Cerbito<span>.</span></a>
+        <button class="menu-btn" id="menuOpenBtn" aria-label="Open Menu">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+    </header>
+
+    <!-- Main Content Menu List -->
+    <main class="container">
+        <ul class="nav-links">
+            <li><a href="#profile">Profile</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#tools">Tools</a></li>
+            <li><a href="#problemsolving">Problem-Solving</a></li>
+            <li><a href="#security">Security</a></li>
+            <li><a href="#ailog">AI Log</a></li>
+            <li><a href="#employability">Employability</a></li>
+            <li><a href="#resume">Resume</a></li>
+            <li><a href="#certificates">Certificates</a></li>
+            <li><a href="#github">GitHub</a></li>
+        </ul>
+    </main>
+
+    <!-- Sidebar Slide-out Menu -->
+    <div class="overlay" id="overlay"></div>
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h3>Navigation</h3>
+            <button class="close-btn" id="menuCloseBtn"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <ul class="sidebar-links">
+            <li><a href="#profile" class="side-link">Profile</a></li>
+            <li><a href="#skills" class="side-link">Skills</a></li>
+            <li><a href="#projects" class="side-link">Projects</a></li>
+            <li><a href="#tools" class="side-link">Tools</a></li>
+            <li><a href="#problemsolving" class="side-link">Problem-Solving</a></li>
+            <li><a href="#security" class="side-link">Security</a></li>
+            <li><a href="#ailog" class="side-link">AI Log</a></li>
+            <li><a href="#employability" class="side-link">Employability</a></li>
+            <li><a href="#resume" class="side-link">Resume</a></li>
+            <li><a href="#certificates" class="side-link">Certificates</a></li>
+            <li><a href="#github" class="side-link">GitHub</a></li>
+        </ul>
+    </div>
+
+    <!-- JavaScript para umandar ang Hamburger Menu toggle -->
+    <script>
+        const menuOpenBtn = document.getElementById('menuOpenBtn');
+        const menuCloseBtn = document.getElementById('menuCloseBtn');
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('overlay');
+        const sideLinks = document.querySelectorAll('.side-link');
+
+        function toggleMenu() {
+            sidebar.classList.toggle('active');
+            overlay.classList.toggle('active');
+        }
+
+        menuOpenBtn.addEventListener('click', toggleMenu);
+        menuCloseBtn.addEventListener('click', toggleMenu);
+        overlay.addEventListener('click', toggleMenu);
+
+        sideLinks.forEach(link => {
+            link.addEventListener('click', toggleMenu);
+        });
+    </script>
+</body>
+</html>
